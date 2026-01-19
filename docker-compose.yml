@@ -1,0 +1,6 @@
+services:
+  identitydb:
+    image: postgres
+
+volumes:
+  postgres_identity:
