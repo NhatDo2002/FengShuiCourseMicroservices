@@ -7,14 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
-    <ProjectReference Include="..\IdentityService.Domain\IdentityService.Domain.csproj" />
+    <Compile Remove="Features\Accounts\EventHandlers\**" />
+    <Compile Remove="Features\Roles\EventHandlers\**" />
+    <EmbeddedResource Remove="Features\Accounts\EventHandlers\**" />
+    <EmbeddedResource Remove="Features\Roles\EventHandlers\**" />
+    <None Remove="Features\Accounts\EventHandlers\**" />
+    <None Remove="Features\Roles\EventHandlers\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Accounts\EventHandlers\" />
-    <Folder Include="Features\Roles\EventHandlers\" />
-    <Folder Include="Features\Roles\Queries\" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
+    <ProjectReference Include="..\IdentityService.Domain\IdentityService.Domain.csproj" />
   </ItemGroup>
 
 </Project>

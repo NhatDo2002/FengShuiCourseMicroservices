@@ -44,7 +44,7 @@
                         phoneNumber: "0123456789",
                         address: "Viet Nam",
                         gender: Gender.Male,
-                        dateOfBirth: new DateTime(2002, 11, 5)
+                        dateOfBirth: DateTime.UtcNow
                     );
                 var adminAccount = Account.Create(
                         id: adminId,

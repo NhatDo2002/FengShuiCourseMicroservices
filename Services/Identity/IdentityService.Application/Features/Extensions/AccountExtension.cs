@@ -35,7 +35,7 @@ namespace IdentityService.Application.Features.Extensions
             return accounts.Select(a => a.ToAccountDto(dbContext)).ToList();
         }
 
-        private static AccountDto ToAccountDto(this Account account, IApplicationDbContext dbContext)
+        public static AccountDto ToAccountDto(this Account account, IApplicationDbContext dbContext)
         {
             var accountDto = new AccountDto
             {

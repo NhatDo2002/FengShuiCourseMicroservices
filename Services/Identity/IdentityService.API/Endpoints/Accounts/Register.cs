@@ -1,6 +1,6 @@
 ﻿using IdentityService.Application.Features.Accounts.Commands.Register;
 
-namespace IdentityService.API.Endpoints
+namespace IdentityService.API.Endpoints.Accounts
 {
     public record RegisterRequest(RegisterDto RegisterDto);
     public record RegisterResponse(string Username);

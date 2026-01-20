@@ -1,6 +1,6 @@
 ﻿using IdentityService.Application.Features.Accounts.Commands.Login;
 
-namespace IdentityService.API.Endpoints
+namespace IdentityService.API.Endpoints.Accounts
 {
     public record LoginRequest(LoginDto LoginDto);
     public record LoginResponse(bool IsSuccess);
