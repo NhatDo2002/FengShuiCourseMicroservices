@@ -1,7 +1,6 @@
 ﻿
-using IdentityService.Domain.ValueObjects;
 
-namespace IdentityService.Application.Accounts.Commands.Register
+namespace IdentityService.Application.Features.Accounts.Commands.Register
 {
     public class RegisterCommandHandler(
             IApplicationDbContext dbContext,
@@ -19,32 +18,12 @@ namespace IdentityService.Application.Accounts.Commands.Register
             }
             var registerDto = command.RegisterDto;
             registerDto.Password = passwordHasher.HashPassword(registerDto.Password);
-            var newAccount = ToAccount(registerDto);
+            var newAccount = registerDto.ToAccount();
             await dbContext.Accounts.AddAsync(newAccount, cancellationToken);
             await dbContext.SaveChangesAsync(cancellationToken);
             return new RegisterResult(newAccount.Username.Value);
         }
 
-        private Account ToAccount(RegisterDto registerDto)
-        {
-            var username = AccountUsername.Of(registerDto.Username);
-            var password = AccountPassword.Of(registerDto.Password);
-            var userInfo = UserInfo.Of(
-                    fullName: registerDto.FullName,
-                    email: registerDto.Email,
-                    phoneNumber: registerDto.PhoneNumber,
-                    address: registerDto.Address,
-                    gender: registerDto.Gender,
-                    dateOfBirth: registerDto.DateOfBirth
-                );
-            var accountId = AccountId.Of(Guid.NewGuid());
-            var account = Account.Create(
-                    id: accountId,
-                    username: username,
-                    password: password,
-                    userInfo: userInfo
-                );
-            return account;
-        }
+        
     }
 }

@@ -12,7 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Accounts\EventHandlers\" />
+    <Folder Include="Features\Accounts\EventHandlers\" />
+    <Folder Include="Features\Roles\EventHandlers\" />
+    <Folder Include="Features\Roles\Queries\" />
   </ItemGroup>
 
 </Project>

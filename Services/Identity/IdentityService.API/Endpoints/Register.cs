@@ -1,4 +1,4 @@
-﻿using IdentityService.Application.Accounts.Commands.Register;
+﻿using IdentityService.Application.Features.Accounts.Commands.Register;
 
 namespace IdentityService.API.Endpoints
 {

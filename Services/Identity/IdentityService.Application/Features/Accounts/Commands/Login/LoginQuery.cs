@@ -1,4 +1,4 @@
-﻿namespace IdentityService.Application.Accounts.Queries.Login
+﻿namespace IdentityService.Application.Features.Accounts.Commands.Login
 {
     public record LoginQuery(LoginDto LoginDto) : IQuery<LoginResult>;
     public record LoginResult(bool IsSuccess);

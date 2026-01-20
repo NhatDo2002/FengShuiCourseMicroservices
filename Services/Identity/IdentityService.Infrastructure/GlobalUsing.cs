@@ -2,7 +2,7 @@
 global using IdentityService.Domain.Models;
 global using IdentityService.Infrastructure.Data;
 global using IdentityService.Infrastructure.Extensions;
-global using IdentityService.Domain.Data;
+global using IdentityService.Application.Services;
 global using IdentityService.Domain.ValueObjects;
 global using IdentityService.Domain.Enums;
 global using Microsoft.EntityFrameworkCore;

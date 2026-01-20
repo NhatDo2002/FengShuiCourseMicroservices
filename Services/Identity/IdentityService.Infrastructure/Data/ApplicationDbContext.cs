@@ -7,6 +7,9 @@
         {
         }
         public DbSet<Account> Accounts => Set<Account>();
+        public DbSet<Role> Roles => Set<Role>();
+        public DbSet<AccountRole> AccountRoles => Set<AccountRole>();
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

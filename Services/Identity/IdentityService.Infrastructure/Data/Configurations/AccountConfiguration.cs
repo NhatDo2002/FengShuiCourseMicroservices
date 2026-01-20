@@ -36,6 +36,12 @@
                                                          dbGender => (Gender)Enum.Parse(typeof(Gender), dbGender)
                                                       );
             });
+            builder.Property(a => a.Status)
+                   .HasDefaultValue(AccountStatus.Active)
+                   .HasConversion(
+                        status => status.ToString(),
+                        dbStatus => (AccountStatus)Enum.Parse(typeof(AccountStatus), dbStatus)
+                        );
         }
     }
 }

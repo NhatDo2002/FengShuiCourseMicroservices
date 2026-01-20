@@ -15,4 +15,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseApiServices();
 
+if(builder.Environment.IsDevelopment())
+{
+    await app.ApplyDatabaseMigrations();
+}
+
 app.Run();

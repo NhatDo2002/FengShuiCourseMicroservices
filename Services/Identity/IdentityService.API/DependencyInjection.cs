@@ -1,5 +1,7 @@
 ﻿
 
+using System.Threading.Tasks;
+
 namespace IdentityService.API
 {
     public static class DependencyInjection
@@ -15,7 +17,6 @@ namespace IdentityService.API
         {
             app.MapCarter();
             app.UseExceptionHandler(opt => {  });
-            app.ApplyDatabaseMigrations();
             return app;
         }
     }

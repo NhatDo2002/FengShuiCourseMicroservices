@@ -1,4 +1,4 @@
-﻿namespace IdentityService.Application.Accounts.Commands.Register
+﻿namespace IdentityService.Application.Features.Accounts.Commands.Register
 {
     public record RegisterCommand(RegisterDto RegisterDto) : ICommand<RegisterResult>;
     public record RegisterResult(string Username);

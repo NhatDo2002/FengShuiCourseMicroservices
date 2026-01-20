@@ -1,4 +1,4 @@
-﻿namespace IdentityService.Application.Accounts.Queries.Login
+﻿namespace IdentityService.Application.Features.Accounts.Commands.Login
 {
     public class LoginQueryHandler(
             IApplicationDbContext dbContext,
@@ -15,7 +15,7 @@
             {
                 throw new AccountNotFoundException("Account doesn't exist. Please check again");
             }
-            if (!user.VerifyPassword(loginDto.Password, passwordHasher))
+            if (!passwordHasher.CheckPassword(loginDto.Password, user.PasswordHash.Value))
             {
                 return new LoginResult(false);
             }

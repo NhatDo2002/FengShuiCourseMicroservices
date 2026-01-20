@@ -1,4 +1,4 @@
-﻿namespace IdentityService.Domain.Data
+﻿namespace IdentityService.Application.Services
 {
     public interface IPasswordHasher
     {

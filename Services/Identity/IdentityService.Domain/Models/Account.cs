@@ -3,9 +3,12 @@
     public class Account
         : Aggregate<AccountId>
     {
-        public AccountUsername Username { get; set; } = default!;
-        public AccountPassword PasswordHash { get; set; } = default!;
-        public UserInfo UserInfo { get; set; } = default!;
+        public AccountUsername Username { get; private set; } = default!;
+        public AccountPassword PasswordHash { get; private set; } = default!;
+        public UserInfo UserInfo { get; private set; } = default!;
+        public AccountStatus Status { get; private set; } = default!;
+        private readonly List<AccountRole> _roles = new();
+        public IReadOnlyCollection<AccountRole> Roles => _roles.AsReadOnly();
 
         public static Account Create(AccountId id, AccountUsername username, AccountPassword password, UserInfo userInfo)
         {
@@ -14,7 +17,8 @@
                 Id = id,
                 Username = username,
                 PasswordHash = password,
-                UserInfo = userInfo
+                UserInfo = userInfo,
+                Status = AccountStatus.Active
             };
             account.AddDomainEvent(new CreatedAccountEvent(account));
             return account;
@@ -31,9 +35,29 @@
             PasswordHash = newPassword;
         }
 
-        public bool VerifyPassword(string password, IPasswordHasher passwordHasher)
+        public void SetStatusAccount(AccountStatus status)
         {
-            return passwordHasher.CheckPassword(password, PasswordHash.Value);
+            Status = status;
+            //AddDomainEvent(new DeactivatedAccountEvent(this));
+        }
+
+        public void AssignRole(Role role)
+        {
+            if(_roles.Any(ar => ar.RoleId == role.Id))
+            {
+                throw new InvalidOperationException("Role already assigned to the account.");
+            }
+            var accountRole = AccountRole.Create(Id, role.Id);
+            _roles.Add(accountRole);
+        }
+
+        public void RemoveRole(Role role)
+        {
+            if (!_roles.Any(ar => ar.RoleId == role.Id))
+            {
+                throw new InvalidOperationException("This role isn't assigned to the account.");
+            }
+            _roles.RemoveAll(ar => ar.RoleId == role.Id);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using IdentityService.Application.Accounts.Queries.Login;
+﻿using IdentityService.Application.Features.Accounts.Commands.Login;
 
 namespace IdentityService.API.Endpoints
 {
