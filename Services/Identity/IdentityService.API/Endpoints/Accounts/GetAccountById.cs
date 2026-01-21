@@ -3,7 +3,7 @@ using IdentityService.Application.Features.Accounts.Queries.GetAccountById;
 
 namespace IdentityService.API.Endpoints.Accounts
 {
-    public record GetAccountByIdRequest(Guid AccountId);
+    //public record GetAccountByIdRequest(Guid AccountId);
     public record GetAccountByIdResponse(AccountDto AccountDto);
     public class GetAccountById : ICarterModule
     {

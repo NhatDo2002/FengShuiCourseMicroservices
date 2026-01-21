@@ -23,7 +23,7 @@ namespace IdentityService.API.Endpoints.Accounts
             .ProducesProblem(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status200OK)
             .WithSummary("Update user password")
-            .WithDescription("Update user password with provided data"); ;
+            .WithDescription("Update user password with provided data");
         }
     }
 }

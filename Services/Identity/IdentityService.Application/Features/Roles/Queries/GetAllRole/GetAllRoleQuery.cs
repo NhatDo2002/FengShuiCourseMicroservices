@@ -6,8 +6,8 @@
     {
         public GetAllRoleValidator() 
         {
-            RuleFor(x => x.PaginationRequest.PageIndex).LessThan(0).WithMessage("Page index cannot less than 0");
-            RuleFor(x => x.PaginationRequest.PageSize).LessThan(0).WithMessage("Page size cannot less than 0");
+            RuleFor(x => x.PaginationRequest.PageIndex).GreaterThan(0).WithMessage("Page index cannot less than 0");
+            RuleFor(x => x.PaginationRequest.PageSize).GreaterThan(0).WithMessage("Page size cannot less than 0");
         }
     }
 }

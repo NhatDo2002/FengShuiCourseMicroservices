@@ -17,16 +17,17 @@ namespace IdentityService.Application.Features.Accounts.Queries.GetAllAccount
             {
                 query = new GetAllAccountQuery(new PaginationRequest());
             }
-            var paginationRequest = query.PaginationRequest;
+            var pageIndex = query.PaginationRequest.PageIndex - 1;
+            var pageSize = query.PaginationRequest.PageSize;
             var totalCount =  await dbContext.Accounts.LongCountAsync(cancellationToken);
             var accounts = await dbContext.Accounts
-                                          .Skip(paginationRequest.PageIndex * paginationRequest.PageSize)
-                                          .Take(paginationRequest.PageSize)
+                                          .Skip(pageIndex * pageSize)
+                                          .Take(pageSize)
                                           .ToListAsync(cancellationToken);
             var accountDtos = accounts.ToListAccountDto(dbContext);
             var paginatedResult = new PaginatedResult<AccountDto>(
-                    pageIndex: paginationRequest.PageIndex,
-                    pageSize: paginationRequest.PageSize,
+                    pageIndex: query.PaginationRequest.PageIndex,
+                    pageSize: pageSize,
                     totalCount: totalCount,
                     data: accountDtos
                 );
