@@ -1,11 +1,11 @@
 ﻿namespace IdentityService.Application.Features.Accounts.Commands.Login
 {
-    public record LoginQuery(LoginDto LoginDto) : IQuery<LoginResult>;
-    public record LoginResult(bool IsSuccess);
+    public record LoginCommand(LoginDto LoginDto) : ICommand<LoginResult>;
+    public record LoginResult(bool IsSuccess, string Token, DateTime ExpirationDateInUTC);
 
-    public class LoginQueryValidator : AbstractValidator<LoginQuery>
+    public class LoginCommandValidator : AbstractValidator<LoginCommand>
     {
-        public LoginQueryValidator()
+        public LoginCommandValidator()
         {
             RuleFor(x => x.LoginDto.Username)
                 .NotEmpty().WithMessage("Username is required.");

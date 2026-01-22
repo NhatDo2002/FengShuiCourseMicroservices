@@ -1,5 +1,6 @@
 ﻿using IdentityService.Application.Features.Accounts.Queries.GetAllAccount;
 
+
 namespace IdentityService.API.Endpoints.Accounts
 {
     //public record GetAllAccountRequest(PaginationRequest PaginationRequest);

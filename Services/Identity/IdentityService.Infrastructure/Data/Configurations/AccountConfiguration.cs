@@ -42,6 +42,12 @@
                         status => status.ToString(),
                         dbStatus => (AccountStatus)Enum.Parse(typeof(AccountStatus), dbStatus)
                         );
+            builder.HasMany<AccountRole>()
+                   .WithOne()
+                   .HasForeignKey(ar => ar.AccountId)
+                   .OnDelete(DeleteBehavior.Cascade); //Xóa account sẽ xóa tất cả các role liên quan đến account đó
+            builder.Navigation(a => a.Roles)
+                   .UsePropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }

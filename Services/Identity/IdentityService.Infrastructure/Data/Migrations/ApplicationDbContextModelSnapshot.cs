@@ -38,6 +38,12 @@ namespace IdentityService.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("RefreshTokenExpiresAtUtc")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
@@ -93,10 +99,13 @@ namespace IdentityService.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("IdentityService.Domain.Models.AccountRole", b =>
                 {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("AccountId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("RoleId")
+                    b.Property<Guid>("AccountId1")
                         .HasColumnType("uuid");
 
                     b.Property<string>("CreateBy")
@@ -105,13 +114,20 @@ namespace IdentityService.Infrastructure.Data.Migrations
                     b.Property<DateTime?>("CreateDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("AccountId", "RoleId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("AccountId1");
 
                     b.HasIndex("RoleId");
 
@@ -153,9 +169,15 @@ namespace IdentityService.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("IdentityService.Domain.Models.AccountRole", b =>
                 {
+                    b.HasOne("IdentityService.Domain.Models.Account", null)
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("IdentityService.Domain.Models.Account", "Account")
                         .WithMany("Roles")
-                        .HasForeignKey("AccountId")
+                        .HasForeignKey("AccountId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

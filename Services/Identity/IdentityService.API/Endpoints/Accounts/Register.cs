@@ -4,9 +4,9 @@ namespace IdentityService.API.Endpoints.Accounts
 {
     public record RegisterRequest(RegisterDto RegisterDto);
     public record RegisterResponse(string Username);
-    public class Register : CarterModule
+    public class Register : ICarterModule
     {
-        public override void AddRoutes(IEndpointRouteBuilder app)
+        public void AddRoutes(IEndpointRouteBuilder app)
         {
             app.MapPost("/register", async (RegisterRequest request, ISender sender) =>
             {

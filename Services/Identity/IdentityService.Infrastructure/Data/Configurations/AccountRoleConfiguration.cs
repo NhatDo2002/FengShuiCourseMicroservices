@@ -5,7 +5,11 @@ namespace IdentityService.Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<AccountRole> builder)
         {
-            builder.HasKey(ar => new { ar.AccountId, ar.RoleId });
+            builder.HasKey(ar => ar.Id);
+            builder.Property(ar => ar.Id).HasConversion(
+                    accountRoleId => accountRoleId.Value,
+                    dbARId => AccountRoleId.Of(dbARId)
+                );
             builder.Property(ar => ar.AccountId).HasConversion(
                     accountId => accountId.Value,
                     dbid => AccountId.Of(dbid)
@@ -16,11 +20,10 @@ namespace IdentityService.Infrastructure.Data.Configurations
                 );
 
             //Thiết lập mối quan hệ 1-n giữa Account và AccountRole (1 account có thể có nhiều role)
-            builder.HasOne(ar => ar.Account)
-                   .WithMany(a => a.Roles)
-                   .IsRequired()
-                   .HasForeignKey(ar => ar.AccountId)
-                   .OnDelete(DeleteBehavior.Cascade); //Xóa account sẽ xóa tất cả các role liên quan đến account đó
+            //builder.HasOne(ar => ar.Account)
+            //       .WithMany(a => a.Roles)
+            //       .IsRequired()
+            //       .HasForeignKey(ar => ar.AccountId);
 
             //Thiết lập mối quan hệ n-1 giữa AccountRole và Role (một role có thể được gán cho nhiều account)
             builder.HasOne(ar => ar.Role)

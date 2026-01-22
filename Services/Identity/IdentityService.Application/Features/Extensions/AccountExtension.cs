@@ -37,6 +37,11 @@ namespace IdentityService.Application.Features.Extensions
 
         public static AccountDto ToAccountDto(this Account account, IApplicationDbContext dbContext)
         {
+            var getAccountRoles = dbContext.AccountRoles
+                                           .AsNoTracking()
+                                           .Where(ar => ar.AccountId == account.Id)
+                                           .Select(ar => ar.Role.ToRoleDto())
+                                           .ToList();
             var accountDto = new AccountDto
             {
                 Id = account.Id.Value,
@@ -46,12 +51,7 @@ namespace IdentityService.Application.Features.Extensions
                 Address = account.UserInfo.Address,
                 Gender = account.UserInfo.Gender,
                 DateOfBirth = account.UserInfo.DateOfBirth,
-                Roles = account.Roles.Select(r => new RoleDto()
-                {
-                    Id = r.RoleId.Value,
-                    Name = dbContext.Roles.FirstOrDefault(rdb => rdb.Id == r.RoleId) != null ? dbContext.Roles.FirstOrDefault(rdb => rdb.Id == r.RoleId)!.Name.Value : "",
-                    Description = dbContext.Roles.FirstOrDefault(rdb => rdb.Id == r.RoleId) != null ? dbContext.Roles.FirstOrDefault(rdb => rdb.Id == r.RoleId)!.Description : ""
-                }).ToList()
+                Roles = getAccountRoles
             };
 
             return accountDto;

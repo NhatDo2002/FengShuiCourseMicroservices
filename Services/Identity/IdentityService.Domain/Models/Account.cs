@@ -1,14 +1,18 @@
-﻿namespace IdentityService.Domain.Models
+﻿using IdentityService.Domain.ValueObjects;
+
+namespace IdentityService.Domain.Models
 {
     public class Account
         : Aggregate<AccountId>
     {
+        private readonly List<AccountRole> _roles = new();
+        public IReadOnlyCollection<AccountRole> Roles => _roles.AsReadOnly();
         public AccountUsername Username { get; private set; } = default!;
         public AccountPassword PasswordHash { get; private set; } = default!;
         public UserInfo UserInfo { get; private set; } = default!;
         public AccountStatus Status { get; private set; } = default!;
-        private readonly List<AccountRole> _roles = new();
-        public IReadOnlyCollection<AccountRole> Roles => _roles.AsReadOnly();
+        public string? RefreshToken { get; set; }
+        public DateTime? RefreshTokenExpiresAtUtc { get; set; }
 
         public static Account Create(AccountId id, AccountUsername username, AccountPassword password, UserInfo userInfo)
         {
@@ -47,7 +51,8 @@
             {
                 throw new InvalidOperationException("Role already assigned to the account.");
             }
-            var accountRole = AccountRole.Create(Id, role.Id);
+            var accountRoleId = AccountRoleId.Of(Guid.NewGuid());
+            var accountRole = AccountRole.Create(accountRoleId, Id, role.Id);
             _roles.Add(accountRole);
         }
 

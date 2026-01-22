@@ -1,4 +1,4 @@
-﻿namespace IdentityService.Infrastructure.Extensions
+﻿namespace IdentityService.Infrastructure.Services
 {
     public class PasswordHasher : IPasswordHasher
     {

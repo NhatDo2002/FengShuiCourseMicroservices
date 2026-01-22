@@ -8,6 +8,7 @@ global using IdentityService.Domain.ValueObjects;
 global using IdentityService.Application.Features.Extensions;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.EntityFrameworkCore.ChangeTracking;
 global using BuildingBlocks.CQRS;
 global using BuildingBlocks.Exceptions;
 global using BuildingBlocks.Behaviors;
